@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es"><!--lenguaje de la pagina-->
+
+<head>
+	<meta charset="utf-8">
+	<title>NUMERO MAGICO</title>
+	<link type="text/css"  href="estilosjuego.css" rel="stylesheet" media="all">
+	
+</head>
+
+<body >
+    <br>
+
+	<!-- ========== RELOJ ========= -->
+	<section >
+		<div class="reloj" >
+			<span id="tiempo">00 : 00 : 00</span>
+		</div>
+	</section>
+	<script >
+		let html = document.getElementById("tiempo");
+
+	setInterval(function(){
+		tiempo = new Date();
+
+		horas = tiempo.getHours();
+		minutos = tiempo.getMinutes();
+		segundos = tiempo.getSeconds();
+
+	//evitar los 0 o numeros individuales
+	if(horas<10)
+		horas = "0"+horas;
+	if(minutos<10)
+		minutos = "0"+minutos;
+	if(segundos<10)
+		segundos = "0"+segundos;
+
+	html.innerHTML = horas+" : "+minutos+" : "+segundos;
+},1000);</script>
+<!-- ========== CRONOMETRO ========= -->
+<form name="form">
+	<br>
+	<div align="left">
+		<span id="hora">00</span>:<span id="minuto">00</span>:<span id="segundo">00</span><span id="milisegundos"></span>
+	</div>
+	<br>
+	<img src="https://anagarciaazcarate.files.wordpress.com/2011/11/mago1.gif" width="370">
+	<p class="titulo">Adivina el numero magico del 1 al 1000</p>
+	<input type="text" id="dato">
+	<button id="boton" type="button" name="star">Probar</button> 
+		<!--<button  id="boton1" type="button" name="star">star</button>
+		<button  id="boton2" type="button" name="pause">pause</button>pause
+		<button   id="boton3" type="button" name="reset">reset</button>reset-->
+	</form>
+    
+	<script type="text/javascript">
+		"use script";
+		let hora=0;
+		let minuto=0;
+		let segundo=0;
+		let milisegundos=0;
+
+		let cron;
+
+		document.form.star.onclick = () =>star();
+		document.form.pause.onclick = () =>pause();
+		document.form.reset.onclick = () =>reset();
+
+		function star(){
+			pause();
+			cron=setInterval(() =>{timer();},10);
+		}
+
+		function pause(){
+			clearInterval(cron);
+		}
+
+		function reset(){
+			hora=0;
+			minuto=0;
+			segundo=0;
+			milisegundos=0;
+			document.getElementById('hora').innerText='00';
+			document.getElementById('minuto').innerText='00';
+			document.getElementById('segundo').innerText='00';
+			document.getElementById('milisegundos').innerText='';
+		}
+
+		function timer(){
+
+			if ((milisegundos += 10) == 1000) {
+
+				milisegundos=0;
+				segundo++;
+			}
+			if (segundo == 60) {
+				segundo=0;
+				minuto++;
+			}
+
+			if (minuto == 60) {
+				minuto=0;
+				hora++;
+			}
+
+			document.getElementById('hora').innerText=returnData(hora);
+			document.getElementById('minuto').innerText=returnData(minuto);
+			document.getElementById('segundo').innerText=returnData(segundo);
+			document.getElementById('milisegundos').innerText='';
+		}
+
+		function returnData(input){
+			return input > 10 ? input : `0${input}`;
+		}
+	</script>
+
+	<!-- ========== JUEGO DEL NUMERO MAGICO ========= -->
+
+
+	<script type="text/javascript">
+		var contador = 1;
+		var max=1000;
+		var min=1;
+		var numero= Math.ceil(Math.random()*(max-min)+min);
+		numero=parseInt(numero);
+		var nombre=window.prompt("Ingresa tu nombre antes de empezar 💪 (•︡益︠•) 👊 \n Y Presiona ACETAR para continuar");
+		/*var numero= Math.ceil(Math.random()*1000;*/
+		document.getElementById("boton").addEventListener("click",function function_name(entrada) {
+					// body...
+					var entrada=document.getElementById("dato").value;
+                  
+					while(Number(entrada)!==numero && contador<10) {
+						if(entrada<numero){
+							entrada = alert("El numero de intentos es ="+(contador)+"\nEl número es Mayor que el introducido. Inténtalo de nuevo 😜💪");
+						}else{
+							entrada = alert("El numero de intentos es ="+(contador)+"\nEl número es Menor que el introducido. Inténtalo de nuevo 😜💪");
+						}
+						contador++;
+						document.getElementById("contador").innerHTML = "Intentos = "+ contador;
+					}
+					if(contador==10){
+						alert("Has superado el número máximo de intentos. (╥﹏╥) 😢 \nIntentalo de nuevo \nEl numero era = "+numero+
+							"\nRecarga la pagina para volver a jugar" );
+					}else{
+						alert("Lo has logrado ( ͡ᵔ ͜ʖ ͡ᵔ) "+" " + nombre + "\n !!Felicidades!!"+ " (>‿◠)✌ \nRecarga la pagina para volver a jugar");
+					}
+				})  
+			</script>
+		</body>
+		<html/>
